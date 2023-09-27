@@ -5,7 +5,7 @@ import "./app.css"
 
 
 const App = () => {
-  const [currentPage, setCurrentPage] = useState(2);
+  
   const [cryptoData, setCryptoData] = useState([]);
   const [prevCryptoData, setPrevCryptoData] = useState([]);
   const [isLoading, setisLoading] = useState(true);
@@ -14,7 +14,7 @@ const App = () => {
   const fetchCryptoData = async () => {
     try {
       
-      const respone = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=${currentPage}&sparkline=false');
+      const respone = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false');
       const data = await respone.json();
 
         setPrevCryptoData(cryptoData);
@@ -43,11 +43,11 @@ const App = () => {
     
 
   return (
-    <div>
+    <div className="content">
     <div className="container heading">
       <h1>Cryptocurrency Market Data</h1>
       <form className="searchbar"> 
-      <input placeholder="Search Coins" onChange={(e) =>setSearch(e.target.value)}/>
+      <input placeholder="Search Coins" onChange={(e) =>setSearch(e.target.value)} className="search-input"/>
       
       </form>
       <table className="table table-bordered table-dark">
@@ -63,7 +63,6 @@ const App = () => {
         </thead>
         <tbody> 
           {handleSearch().map(coin => (
-            
             <tr key={coin.id}>
               <td>{coin.market_cap_rank}</td>
               <td>{coin.name}</td>
